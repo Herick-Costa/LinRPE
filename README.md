@@ -23,6 +23,33 @@ Este projeto é um script simples em **Bash** que automatiza a detecção e expl
 - `alpine`
 - `ar`
 - `arj`
+- `arp`
+- `as`
+- `ascii-xfr`
+- `ash`
+- `aspell`
+- `atobm`
+- `awk`
+- `base32`
+- `base64`
+- `basenc`
+- `basez`
+- `bc`
+- `bridge`
+- `busctl`
+- `busybox`
+- `bzip2`
+- `cabal`
+- `capsh`
+- `cat`
+- `chmod`
+- `choom`
+- `chown`
+- `chroot`
+- `clamscan`
+- `cmp`
+- `column`
+- `comm`
 - *(outros sendo adicionados...)*
 
 ---
