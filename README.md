@@ -1,6 +1,6 @@
-# 🔒 SUID Auto-Exploit (em construção)
+# 🔒 LinRPE Linux Privilege Escalation - Auto-Exploit (em construção)
 
-Este projeto é um script simples em **Bash** que automatiza a detecção e exploração básica de **binários com SUID** no Linux, com base nas técnicas documentadas no [GTFOBins](https://gtfobins.github.io/).
+Este projeto é um script simples em **Bash** que automatiza a detecção e exploração básica para escalonamento de privilégios no Linux, com base nas técnicas documentadas no [GTFOBins](https://gtfobins.github.io/).
 
 > ⚠️ **Aviso:** Este script está em desenvolvimento e é voltado apenas para **uso educacional e em ambientes controlados (CTF, laboratórios, pentest autorizado)**.
 
