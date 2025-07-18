@@ -171,7 +171,6 @@ for path in $SUIDS; do
             "$path" /etc/shadow /dev/null 2>/dev/null
             ;;
         *)
-            continue
             ;;
     esac
 done
