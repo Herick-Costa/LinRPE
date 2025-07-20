@@ -18,16 +18,16 @@ Este projeto é um conjunto de scripts simples em **Bash** que automatiza a dete
 
 - Procura binários com a flag SUID (`find / -perm -u=s -type f`)
 - Para cada binário encontrado, verifica se existe um exploit conhecido no GTFOBins
-- Caso exista, executa o exploit automaticamente ou mostra um exemplo de uso
+- Caso exista, executa o exploit automaticamente ou exibi um exemplo de uso
 
 ---
 
 # Capabilities.sh
 ## 📌 O que ele faz?
 
-- Procura binários com a flag SUID (`find / -perm -u=s -type f`)
+- Procura binários com capabilities setadas usando (`getcap -r / 2>/dev/null`)
 - Para cada binário encontrado, verifica se existe um exploit conhecido no GTFOBins
-- Caso exista, executa o exploit automaticamente ou mostra um exemplo de uso
+- Caso exista, executa o exploit automaticamente ou exibi um exemplo de uso
 
 ---
 
