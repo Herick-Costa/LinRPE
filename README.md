@@ -2,6 +2,7 @@
 
 Este projeto é um conjunto de scripts simples em **Bash** que automatiza a detecção e exploração básica de **tecnicas clássicas de escalonamento de privilégios** no Linux, usando como base as técnicas documentadas no [GTFOBins](https://gtfobins.github.io/).
 
+---
 > ⚠️ **Aviso:** Estes scripts estão em desenvolvimento e são voltados apenas para **uso educacional e em ambientes controlados (CTF, laboratórios, pentest autorizado)**.
 
 ---
@@ -11,7 +12,7 @@ Este projeto é um conjunto de scripts simples em **Bash** que automatiza a dete
 - Junção de todos os scripts - Ainda em construção ⚠️
 
 ---
----
+
 # SUID.sh
 ## 📌 O que ele faz?
 
@@ -20,7 +21,7 @@ Este projeto é um conjunto de scripts simples em **Bash** que automatiza a dete
 - Caso exista, executa o exploit automaticamente ou mostra um exemplo de uso
 
 ---
----
+
 # Capabilities.sh
 ## 📌 O que ele faz?
 
@@ -29,13 +30,11 @@ Este projeto é um conjunto de scripts simples em **Bash** que automatiza a dete
 - Caso exista, executa o exploit automaticamente ou mostra um exemplo de uso
 
 ---
----
+
 # sudo-l.sh
 ## 📌 O que ele faz?
 
 - Ainda em construção ⚠️
-
----
 
 ---
 
