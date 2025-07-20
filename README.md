@@ -1,11 +1,18 @@
-# 🔒 LinRPE Linux Privilege Escalation - Auto-Exploit (em construção)
+# 🔒 Projeto LinRPE Linux Privilege Escalation - Auto-Exploit (em construção)
 
-Este projeto é um script simples em **Bash** que automatiza a detecção e exploração básica para escalonamento de privilégios no Linux, com base nas técnicas documentadas no [GTFOBins](https://gtfobins.github.io/).
+Este projeto é um conjunto de scripts simples em **Bash** que automatiza a detecção e exploração básica de **tecnicas clássicas de escalonamento de privilégios** no Linux, usando como base as técnicas documentadas no [GTFOBins](https://gtfobins.github.io/).
 
-> ⚠️ **Aviso:** Este script está em desenvolvimento e é voltado apenas para **uso educacional e em ambientes controlados (CTF, laboratórios, pentest autorizado)**.
+> ⚠️ **Aviso:** Estes scripts estão em desenvolvimento e são voltados apenas para **uso educacional e em ambientes controlados (CTF, laboratórios, pentest autorizado)**.
 
 ---
+# LinRPE.sh
+## 📌 O que ele faz?
 
+- Junção de todos os scripts - Ainda em construção ⚠️
+
+---
+---
+# SUID.sh
 ## 📌 O que ele faz?
 
 - Procura binários com a flag SUID (`find / -perm -u=s -type f`)
@@ -13,53 +20,22 @@ Este projeto é um script simples em **Bash** que automatiza a detecção e expl
 - Caso exista, executa o exploit automaticamente ou mostra um exemplo de uso
 
 ---
+---
+# Capabilities.sh
+## 📌 O que ele faz?
 
-## ✅ Binários atualmente suportados
-
-- `bash`
-- `aa-exec`
-- `ab`
-- `agetty`
-- `alpine`
-- `ar`
-- `arj`
-- `arp`
-- `as`
-- `ascii-xfr`
-- `ash`
-- `aspell`
-- `atobm`
-- `awk`
-- `base32`
-- `base64`
-- `basenc`
-- `basez`
-- `bc`
-- `bridge`
-- `busctl`
-- `busybox`
-- `bzip2`
-- `cabal`
-- `capsh`
-- `cat`
-- `chmod`
-- `choom`
-- `chown`
-- `chroot`
-- `clamscan`
-- `cmp`
-- `column`
-- `comm`
-- *(outros sendo adicionados...)*
+- Procura binários com a flag SUID (`find / -perm -u=s -type f`)
+- Para cada binário encontrado, verifica se existe um exploit conhecido no GTFOBins
+- Caso exista, executa o exploit automaticamente ou mostra um exemplo de uso
 
 ---
+---
+# sudo-l.sh
+## 📌 O que ele faz?
 
-## 🛠️ Exemplo de uso
+- Ainda em construção ⚠️
 
-```bash
-chmod +x suid_exploit.sh
-./suid_exploit.sh
-```
+---
 
 ---
 
