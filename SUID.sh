@@ -1,6 +1,20 @@
 #!/bin/bash
+echo -e "\e[1;35m"
+cat << "EOF"
+           _     _ 
+ ___ _   _(_) __| |
+/ __| | | | |/ _` |
+\__ \ |_| | | (_| |
+|___/\__,_|_|\__,_|
 
+EOF
+echo -e "\e[0m"
+
+echo -e "\e[1;35m"
+echo "[*] ----------------- SUID ----------------"
 echo "[*] Procurando binários SUID do GTFOBins..."
+echo "[*] ---------------------------------------"
+echo -e "\e[0m"
 
 SUIDS=$(find / -perm -u=s -type f 2>/dev/null)
 echo "$SUIDS"
