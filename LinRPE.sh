@@ -2871,7 +2871,7 @@ EOF
             sudo PATH=$TF:$PATH "$paths" x
             ;;
         *)
-            echo "[-] Comando sudo permitido: $paths → sem exploit automático registrado."
+            echo "[-] Comando sudo permitido: $paths → sem exploit automático registrado"
         ;;
     esac
 done
