@@ -1,6 +1,20 @@
 #!/bin/bash
+echo -e "\e[1;35m"
+cat << "EOF"
+               _       
+ ___ _   _  __| | ___  
+/ __| | | |/ _` |/ _ \ 
+\__ \ |_| | (_| | (_) |
+|___/\__,_|\__,_|\___/ 
+                       
+EOF
+echo -e "\e[0m"
 
-echo "[*] Verificando permissões sudo..."
+echo -e "\e[1;35m"
+echo "[*] --------------- sudo -l ---------------"
+echo "[*] [*] Verificando permissões sudo -l ...."
+echo "[*] ---------------------------------------"
+echo -e "\e[0m"
 
 sudol=$(sudo -n -l 2>&1)
 if [[ $? -ne 0 ]]; then
