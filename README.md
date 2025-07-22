@@ -34,7 +34,10 @@ Este projeto é um conjunto de scripts simples em **Bash** que automatiza a dete
 # sudo-l.sh
 ## 📌 O que ele faz?
 
-- Ainda em construção ⚠️
+- Executa `sudo -l -n` para listar comandos que o usuário pode rodar como root
+- Se o sudo -l não exigir senha, analisa a saída em busca de comandos com NOPASSWD
+- Para cada comando listado, verifica se há um exploit conhecido (GTFOBins)
+- Se houver, executa automaticamente ou mostra um exemplo de uso
 
 ---
 
