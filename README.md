@@ -20,6 +20,7 @@ Ps: Não inclui Limited SUID
 - Procura binários com a flag SUID (`find / -perm -u=s -type f`)
 - Para cada binário encontrado, verifica se existe um exploit conhecido no GTFOBins
 - Caso exista, executa o exploit automaticamente ou exibi um exemplo de uso
+- Não inclui Limited SUID
 
 ---
 
