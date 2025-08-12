@@ -1,7 +1,6 @@
 # 🔒 Projeto LinRPE Linux Privilege Escalation - Auto-Exploit (em construção)
 
 Este projeto é um conjunto de scripts simples em **Bash** que automatiza a detecção e exploração básica de **tecnicas clássicas de escalonamento de privilégios** no Linux, usando como base as técnicas documentadas no [GTFOBins](https://gtfobins.github.io/).
-Ps: Não inclui Limited SUID
 
 ---
 > ⚠️ **Aviso:** Estes scripts estão em desenvolvimento e são voltados apenas para **uso educacional e em ambientes controlados (CTF, laboratórios, pentest autorizado)**.
@@ -10,7 +9,7 @@ Ps: Não inclui Limited SUID
 # LinRPE.sh
 ## 📌 O que ele faz?
 
-- Junção de todos os scripts - Ainda em construção ⚠️
+- Junção de todos os scripts - Ainda em testes ⚠️
 
 ---
 
@@ -40,6 +39,15 @@ Ps: Não inclui Limited SUID
 - Se o sudo -l não exigir senha, analisa a saída em busca de comandos com NOPASSWD
 - Para cada comando listado, verifica se há um exploit conhecido (GTFOBins)
 - Se houver, executa automaticamente ou mostra um exemplo de uso
+
+---
+
+# LimitedSUID.sh
+## 📌 O que ele faz?
+
+- Procura binários com a flag SUID (`find / -perm -u=s -type f`)
+- Para cada binário encontrado, verifica se existe um exploit conhecido no GTFOBins para Limited SUID
+- Caso exista, executa o exploit automaticamente ou exibi um exemplo de uso
 
 ---
 
