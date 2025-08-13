@@ -17,9 +17,7 @@ Este projeto é um conjunto de scripts simples em **Bash** que automatiza a dete
 - Caso encontre alguma combinação em algum ponto da execução executa o exploit ou mostra um exemplo
 
 
-https://github.com/user-attachments/assets/09e99bee-1faa-4f31-b7dc-cca70512b1ae
-
-
+https://github.com/user-attachments/assets/8b17a24c-db73-4cac-8357-d35667cad5da
 
 ---
 
