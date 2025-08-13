@@ -26,9 +26,7 @@ Este projeto é um conjunto de scripts simples em **Bash** que automatiza a dete
 - Caso exista, executa o exploit automaticamente ou exibi um exemplo de uso
 - Não inclui Limited SUID
   
-<img width="975" height="729" alt="image" src="https://github.com/user-attachments/assets/2de67706-6da5-4aac-8455-4fab99f835d4" />
-<img width="488" height="729" alt="image" src="https://github.com/user-attachments/assets/21e7210b-490d-4f3a-ace1-b0eebbb493fc" />
-
+<img width="977" height="567" alt="image" src="https://github.com/user-attachments/assets/e0201cfd-e861-4445-9ba3-28392cabd112" />
 
 ---
 
