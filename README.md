@@ -10,6 +10,11 @@ Este projeto é um conjunto de scripts simples em **Bash** que automatiza a dete
 ## 📌 O que ele faz?
 
 - Junção de todos os scripts - Ainda em testes ⚠️
+- Executa a verificação de SUIDs
+- Em seguida de Capabilities
+- Em seguida sudo -l -n
+- E pergunta se quer testar Limited SUIDs
+- Caso encontre alguma combinação em algum ponto da execução executa o exploit ou mostra um exemplo
 
 ---
 
