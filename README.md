@@ -27,6 +27,8 @@ Este projeto é um conjunto de scripts simples em **Bash** que automatiza a dete
 - Não inclui Limited SUID
   
 <img width="975" height="729" alt="image" src="https://github.com/user-attachments/assets/2de67706-6da5-4aac-8455-4fab99f835d4" />
+<img width="488" height="729" alt="image" src="https://github.com/user-attachments/assets/21e7210b-490d-4f3a-ace1-b0eebbb493fc" />
+
 
 ---
 
@@ -47,7 +49,7 @@ Este projeto é um conjunto de scripts simples em **Bash** que automatiza a dete
 - Para cada comando listado, verifica se há um exploit conhecido (GTFOBins)
 - Se houver, executa automaticamente ou mostra um exemplo de uso
 
-<img width="971" height="729" alt="image" src="https://github.com/user-attachments/assets/e67fb9af-6181-4ca9-890d-a173ee2abd0b" />
+<img width="971" height="151" alt="image" src="https://github.com/user-attachments/assets/49c7e936-7a3e-4a96-8ece-fc0287e928b0" />
 
 ---
 
