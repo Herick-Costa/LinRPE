@@ -16,7 +16,10 @@ Este projeto é um conjunto de scripts simples em **Bash** que automatiza a dete
 - E pergunta se quer testar Limited SUIDs
 - Caso encontre alguma combinação em algum ponto da execução executa o exploit ou mostra um exemplo
 
-![Projeto de Vídeo](https://github.com/user-attachments/assets/d8647afd-a5d7-40d3-af79-b152e3bcaa3c)
+
+https://github.com/user-attachments/assets/09e99bee-1faa-4f31-b7dc-cca70512b1ae
+
+
 
 ---
 
