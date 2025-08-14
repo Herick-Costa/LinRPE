@@ -1,4 +1,4 @@
-# 🔒 Projeto LinRPE Linux Privilege Escalation - Auto-Exploit (em construção)
+# 🔒 Projeto LinRPE Linux Privilege Escalation - Auto-Exploit
 
 Este projeto é um conjunto de scripts simples em **Bash** que automatiza a detecção e exploração básica de **tecnicas clássicas de escalonamento de privilégios** no Linux, usando como base as técnicas documentadas no [GTFOBins](https://gtfobins.github.io/).
 
