@@ -134,7 +134,7 @@ for path in $SUIDS; do
             echo "[+] $path → capsh SUID encontrado! Teste:"
             "$path" --gid=0 --uid=0 --
             ;;
-        cat|column|eqn|expand|hd|less|links|more|paste|pg|soelim|strings|tbl|troff|ul|uniq|xmore|zsoelim)
+        cat|column|eqn|expand|hd|less|links|more|paste|pg|soelim|strings|tbl|troff|ul|uniq|xmore|zsoelim|x86_64-linux-gnu-strings)
             echo "[+] $path → SUID encontrado! Teste:"
             "$path" /etc/shadow
             ;;
